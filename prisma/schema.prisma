@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("POSTGRES_URL")
+  // 25/07/24時点で、以下の設定は不要になった。
   // directUrl         = env("POSTGRES_URL_NON_POOLING")
   // shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING")
 }
