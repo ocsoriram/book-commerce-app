@@ -127,3 +127,5 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+// model BookはmicroCMSで管理するのでschima.prismaでは定義しない
