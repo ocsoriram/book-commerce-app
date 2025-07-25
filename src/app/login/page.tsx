@@ -1,4 +1,13 @@
+import { getProviders } from "next-auth/react";
+
 async function Login() {
+
+  const providers = await getProviders()
+                    .then((res) => {
+                      // console.log(res);
+                      return res;
+                    });
+
   return (
     <div className="flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
