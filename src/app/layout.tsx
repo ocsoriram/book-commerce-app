@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { NextAuthProvider } from "./lib/next-auth/provider";
 // import { Geist, Geist_Mono } from "next/font/google";
 import { Noto_Sans_JP } from "next/font/google";
 import Header from "./components/Header";
@@ -31,14 +32,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${notoSansJP.className} antialiased`}>
-        <Header />
-        {children}
+        <NextAuthProvider>
+          <Header />
+          {children}
+        </NextAuthProvider>
       </body>
-      {/* <body
-        className={`${geistMono.variable} ${geistSans.variable} antialiased`}
-      >
-        {children}
-      </body> */}
     </html>
   );
 }
