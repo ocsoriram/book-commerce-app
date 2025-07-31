@@ -55,7 +55,7 @@ import { getAllBooks } from "./microcms/client";
 
 export default async function Home() {
   const { contents } = await getAllBooks();
-  console.log("contents: " + JSON.stringify(contents, null, 2));
+  // console.log("contents: " + JSON.stringify(contents, null, 2));
   return (
     <>
       <main className="flex flex-wrap justify-center items-center md:mt-32 mt-20">

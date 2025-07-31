@@ -1,8 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import { BookType } from "../type/type";
 
-const Book = ({ book }: any) => {
+type bookProps = {
+  book: BookType;
+};
+
+const Book = ({ book }: bookProps) => {
   return (
     <>
       {/* アニメーションスタイル */}
