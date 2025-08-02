@@ -20,12 +20,21 @@ const Header = () => {
           >
             ホーム
           </Link>
-          <Link
-            href="/login"
-            className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-          >
-            ログイン
-          </Link>
+          {user ? (
+            <Link
+              href="/profile"
+              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >
+              プロフィール
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >
+              ログイン
+            </Link>
+          )}
           {user ? (
             <button
               className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
