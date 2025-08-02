@@ -24,14 +24,39 @@ const Book = ({ book }: bookProps) => {
     setShowModal(false);
   };
 
+  const startCheckout = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application.json",
+          },
+          body: JSON.stringify({
+            title: book.title,
+            price: book.price,
+          }),
+        }
+      );
+      const responseData = await response.json();
+
+      if (responseData) {
+        router.push(responseData.checkout_url);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handlePurchaseOnClick = () => {
     if (!user) {
       // ログイン画面にリダイレクト
       router.push("/login");
       return;
     }
-
     // Stripeで購入処理を実行
+    startCheckout();
   };
 
   return (
