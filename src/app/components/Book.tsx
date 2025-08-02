@@ -1,6 +1,9 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { BookType } from "../type/type";
 
 type bookProps = {
@@ -8,6 +11,29 @@ type bookProps = {
 };
 
 const Book = ({ book }: bookProps) => {
+  const [showModal, setShowModal] = useState(false);
+  const { data: session } = useSession();
+  const user = session?.user;
+  const router = useRouter();
+
+  const handleConfirm = () => {
+    setShowModal(true);
+  };
+
+  const handleCancel = () => {
+    setShowModal(false);
+  };
+
+  const handlePurchaseOnClick = () => {
+    if (!user) {
+      // ログイン画面にリダイレクト
+      router.push("/login");
+      return;
+    }
+
+    // Stripeで購入処理を実行
+  };
+
   return (
     <>
       {/* アニメーションスタイル */}
@@ -35,7 +61,8 @@ const Book = ({ book }: bookProps) => {
             alt={book.title}
             width={450}
             height={350}
-            className="rounded-t-md"
+            className="rounded-t-md bg-stone-100/10"
+            onClick={handleConfirm}
           />
           <div className="px-4 py-4 bg-slate-100 rounded-b-md">
             <h2 className="text-lg font-semibold">{book.title}</h2>
@@ -43,19 +70,26 @@ const Book = ({ book }: bookProps) => {
             <p className="mt-2 text-md text-slate-700">値段：{book.price}</p>
           </div>
         </a>
-
-        {/* <div className="absolute top-0 left-0 right-0 bottom-0 bg-slate-900 bg-opacity-50 flex justify-center items-center modal">
+      </div>
+      {showModal && (
+        <div className="absolute top-0 left-0 right-0 bottom-0 bg-slate-900/80 flex justify-center items-center modal h-full">
           <div className="bg-white p-8 rounded-lg">
             <h3 className="text-xl mb-4">本を購入しますか？</h3>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">
+            <button
+              onClick={handlePurchaseOnClick}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
+            >
               購入する
             </button>
-            <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+            <button
+              onClick={handleCancel}
+              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+            >
               キャンセル
             </button>
           </div>
-        </div> */}
-      </div>
+        </div>
+      )}
     </>
   );
 };
