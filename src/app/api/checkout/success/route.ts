@@ -2,7 +2,7 @@ import prisma from "@/app/lib/prisma";
 import { client } from "./../../../microcms/client";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { console } from "inspector";
+// import { console } from "inspector";
 
 // 購入履歴の保存
 export async function POST(request: Request, response: Response) {
