@@ -1,6 +1,38 @@
+"use client";
+
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 const PurchaseSuccess = () => {
+  const searchParams = useSearchParams();
+  const sessionId = searchParams.get("session_id");
+
+  // use clientなので,useEffect内でasyncを使うしかない
+  useEffect(() => {
+    const fetchData = async () => {
+      if (sessionId) {
+        try {
+          // console.log("sessionID", sessionId);
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/checkout/success`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ sessionId }),
+            }
+          );
+          // console.log("sessionId:", await res.json());
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="flex items-center justify-center mt-20">
       <div className="bg-white p-6 rounded-lg shadow-lg">

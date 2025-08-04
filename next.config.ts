@@ -14,6 +14,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // デフォルトではreactStrictModeがtrueになっているので、falseにすることで、useEffectのダブルマウントを防止する。
+  reactStrictMode: false,
 };
 
 export default nextConfig;

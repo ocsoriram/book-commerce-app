@@ -13,8 +13,12 @@ type bookProps = {
 const Book = ({ book }: bookProps) => {
   const [showModal, setShowModal] = useState(false);
   const { data: session } = useSession();
-  const user = session?.user;
+  // FIXME useSessionの型指定が原因　とりあえずanyで一時退避
+  const user: any = session?.user;
   const router = useRouter();
+
+  // console.log("userId", user?.id);
+  // console.log("bookId", book.id);
 
   const handleConfirm = () => {
     setShowModal(true);
@@ -36,6 +40,8 @@ const Book = ({ book }: bookProps) => {
           body: JSON.stringify({
             title: book.title,
             price: book.price,
+            userId: user?.id,
+            bookId: book.id,
           }),
         }
       );
