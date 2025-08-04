@@ -8,9 +8,10 @@ import { BookType } from "../type/type";
 
 type bookProps = {
   book: BookType;
+  isPurchased: boolean;
 };
 
-const Book = ({ book }: bookProps) => {
+const Book = ({ book, isPurchased }: bookProps) => {
   const [showModal, setShowModal] = useState(false);
   const { data: session } = useSession();
   // FIXME useSessionの型指定が原因　とりあえずanyで一時退避
@@ -21,7 +22,12 @@ const Book = ({ book }: bookProps) => {
   // console.log("bookId", book.id);
 
   const handleConfirm = () => {
-    setShowModal(true);
+    // TODO 購入済みなら記事ページに遷移させることも考える
+    if (isPurchased) {
+      alert("その商品は購入済みです");
+    } else {
+      setShowModal(true);
+    }
   };
 
   const handleCancel = () => {
