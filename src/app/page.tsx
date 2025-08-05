@@ -4,14 +4,16 @@ import { getServerSession } from "next-auth";
 import Book from "./components/Book";
 import { nextAuthOptions } from "./lib/next-auth/options";
 import { getAllBooks } from "./microcms/client";
+import { Purchase, PurchaseBookIds, User } from "./type/type";
 
 export default async function Home() {
   const { contents } = await getAllBooks();
   // サーバサイドでセッションから情報を取得する
   const session = await getServerSession(nextAuthOptions);
-  const user: any = session?.user;
+  // as 型　の指定で、値が存在する時に硬キャストする、という意味になる。
+  const user = session?.user as User;
 
-  let purchaseBookIds: any;
+  let purchaseBookIds: PurchaseBookIds;
 
   // ユーザーが存在すれば、購入済みの書籍データを取得する
   if (user) {
@@ -22,7 +24,7 @@ export default async function Home() {
     // console.log("purchaseData:", purchasesData);
 
     purchaseBookIds = purchasesData.map(
-      (purchaseBook: any) => purchaseBook.bookId
+      (purchaseBook: Purchase) => purchaseBook.bookId
     );
     // console.log(purchaseBookIds);
   }
