@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { BookType } from "../type/type";
+import { BookType, User } from "../type/type";
 
 type bookProps = {
   book: BookType;
@@ -14,8 +14,7 @@ type bookProps = {
 const Book = ({ book, isPurchased }: bookProps) => {
   const [showModal, setShowModal] = useState(false);
   const { data: session } = useSession();
-  // FIXME useSessionの型指定が原因　とりあえずanyで一時退避
-  const user: any = session?.user;
+  const user = session?.user as User;
   const router = useRouter();
 
   // console.log("userId", user?.id);
