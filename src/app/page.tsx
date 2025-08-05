@@ -13,7 +13,7 @@ export default async function Home() {
   // as 型　の指定で、値が存在する時に硬キャストする、という意味になる。
   const user = session?.user as User;
 
-  let purchaseBookIds: PurchaseBookIds;
+  let purchaseBookIds: PurchaseBookIds = [];
 
   // ユーザーが存在すれば、購入済みの書籍データを取得する
   if (user) {

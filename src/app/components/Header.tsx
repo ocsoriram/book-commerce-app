@@ -38,7 +38,8 @@ const Header = async () => {
           )}
           {/* TODO ログアウト機能をコンポーネント化してuse clientで使う */}
           {user ? (
-            <button
+            <Link
+              href={"/api/auth/signout"}
               className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               // onClick={() => {
               //   signOut({ callbackUrl: "/login" })
@@ -46,7 +47,7 @@ const Header = async () => {
               // }}
             >
               ログアウト
-            </button>
+            </Link>
           ) : (
             ""
           )}
