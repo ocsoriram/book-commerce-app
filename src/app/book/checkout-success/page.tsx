@@ -10,6 +10,7 @@ const PurchaseSuccess = () => {
   const sessionId = searchParams.get("session_id");
 
   // use clientなので,useEffect内でasyncを使うしかない
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const fetchData = async () => {
       if (sessionId) {
