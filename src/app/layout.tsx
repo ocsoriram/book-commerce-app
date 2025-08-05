@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { NextAuthProvider } from "./lib/next-auth/provider";
 // import { Geist, Geist_Mono } from "next/font/google";
 import { Noto_Sans_JP } from "next/font/google";
+import { Suspense } from "react";
 import Header from "./components/Header";
 import "./globals.css";
+import Loading from "./Loading";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -31,14 +34,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${notoSansJP.className} antialiased`}>
-        <Header />
-        {children}
+        <NextAuthProvider>
+          <Header />
+          <Suspense fallback={<Loading />}>{children}</Suspense>
+        </NextAuthProvider>
       </body>
-      {/* <body
-        className={`${geistMono.variable} ${geistSans.variable} antialiased`}
-      >
-        {children}
-      </body> */}
     </html>
   );
 }

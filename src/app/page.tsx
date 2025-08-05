@@ -1,66 +1,45 @@
-"use client";
+// "use client";
 
+import { getServerSession } from "next-auth";
 import Book from "./components/Book";
+import { nextAuthOptions } from "./lib/next-auth/options";
+import { getAllBooks } from "./microcms/client";
+import { Purchase, PurchaseBookIds, User } from "./type/type";
 
-// 疑似データ 後で削除
-const books = [
-  {
-    id: 1,
-    title: "Book 1",
-    thumbnail: "/thumbnails/discord-clone-udemy.png",
-    price: 2980,
-    author: {
-      id: 1,
-      name: "Author 1",
-      description: "Author 1 description",
-      profile_icon: "https://source.unsplash.com/random/2",
-    },
-    content: "Content 1",
-    created_at: new Date().toString(),
-    updated_at: new Date().toString(),
-  },
-  {
-    id: 2,
-    title: "Book 2",
-    thumbnail: "/thumbnails/notion-udemy.png",
-    price: 1980,
-    author: {
-      id: 2,
-      name: "Author 2",
-      description: "Author 2 description",
-      profile_icon: "https://source.unsplash.com/random/3",
-    },
-    content: "Content 2",
-    created_at: new Date().toString(),
-    updated_at: new Date().toString(),
-  },
-  {
-    id: 3,
-    title: "Book 3",
-    price: 4980,
-    thumbnail: "/thumbnails/openai-chatapplication-udem.png",
-    author: {
-      id: 3,
-      name: "Author 3",
-      description: "Author 3 description",
-      profile_icon: "https://source.unsplash.com/random/4",
-    },
-    content: "Content 3",
-    created_at: new Date().toString(),
-    updated_at: new Date().toString(),
-  },
-  // 他の本のデータ...
-];
+export default async function Home() {
+  const { contents } = await getAllBooks();
+  // サーバサイドでセッションから情報を取得する
+  const session = await getServerSession(nextAuthOptions);
+  // as 型　の指定で、値が存在する時に硬キャストする、という意味になる。
+  const user = session?.user as User;
 
-export default function Home() {
+  let purchaseBookIds: PurchaseBookIds = [];
+
+  // ユーザーが存在すれば、購入済みの書籍データを取得する
+  if (user) {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/purchases/${user.id}`
+    );
+    const purchasesData = await response.json();
+    // console.log("purchaseData:", purchasesData);
+
+    purchaseBookIds = purchasesData.map(
+      (purchaseBook: Purchase) => purchaseBook.bookId
+    );
+    // console.log(purchaseBookIds);
+  }
   return (
     <>
       <main className="flex flex-wrap justify-center items-center md:mt-32 mt-20">
         <h2 className="text-center w-full font-bold text-3xl mb-2">
           Book Commerce
         </h2>
-        {books.map((book) => (
-          <Book key={book.id} book={book} />
+        {contents.map((book) => (
+          <Book
+            key={book.id}
+            book={book}
+            isPurchased={purchaseBookIds.includes(book.id)}
+          />
         ))}
       </main>
     </>
