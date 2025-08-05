@@ -37,11 +37,11 @@ export async function POST(request: Request, response: Response) {
           bookId: session.metadata.bookId!,
         },
       });
-      console.log("purchase:");
+      // console.log("purchase:");
       return NextResponse.json(purchase);
     } else {
       // return NextResponse.json({ message: "すでに購入済みです" });
-      console.log("すでに購入済みです");
+      // console.log("すでに購入済みです");
       return NextResponse.json(existingPurchase);
     }
   } catch (err) {

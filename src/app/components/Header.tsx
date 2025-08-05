@@ -7,7 +7,7 @@ import { User } from "../type/type";
 const Header = async () => {
   const session = await getServerSession(nextAuthOptions);
   const user = session?.user as User;
-  console.log(user);
+  // console.log(user);
   return (
     <header className="bg-slate-600 text-gray-100 shadow-lg">
       <nav className="flex items-center justify-between p-4">
@@ -30,13 +30,13 @@ const Header = async () => {
             </Link>
           ) : (
             <Link
-              href="/login"
+              href="/api/auth/signin"
               className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
               ログイン
             </Link>
           )}
-          {/* TODO ログアウト機能をコンポーネント化してuse clientで使う */}
+          {/*  ログアウト機能をコンポーネント化してuse clientで使うこともできる*/}
           {user ? (
             <Link
               href={"/api/auth/signout"}
