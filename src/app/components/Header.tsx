@@ -1,11 +1,12 @@
-"use client";
-import { signOut, useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
+import { nextAuthOptions } from "../lib/next-auth/options";
+import { User } from "../type/type";
 
-const Header = () => {
-  const { data: session } = useSession();
-  const user = session?.user;
+const Header = async () => {
+  const session = await getServerSession(nextAuthOptions);
+  const user = session?.user as User;
   console.log(user);
   return (
     <header className="bg-slate-600 text-gray-100 shadow-lg">
@@ -35,12 +36,14 @@ const Header = () => {
               ログイン
             </Link>
           )}
+          {/* TODO ログアウト機能をコンポーネント化してuse clientで使う */}
           {user ? (
             <button
               className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              onClick={() => {
-                signOut({ callbackUrl: "/login" });
-              }}
+              // onClick={() => {
+              //   signOut({ callbackUrl: "/login" })
+              //   ;
+              // }}
             >
               ログアウト
             </button>
