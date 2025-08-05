@@ -1,7 +1,11 @@
 import Image from "next/image";
 import { getDetailBook } from "../../microcms/client";
 
-const DetailBook = async ({ params }: { params: { bookId: string } }) => {
+const DetailBook = async ({
+  params,
+}: {
+  params: Promise<{ bookId: string }>;
+}) => {
   const { bookId } = await params;
   const book = await getDetailBook(bookId); // SSR fetchを使うとSSRになる
   // console.log(book);
