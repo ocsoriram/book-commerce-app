@@ -3,8 +3,8 @@ import GitHubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "../prisma";
 
+// nextAuthを使う時の挙動の設定
 export const nextAuthOptions: NextAuthOptions = {
-  secret: process.env.NEXTAUTH_SECRET,
   debug: false,
   providers: [
     GitHubProvider({
@@ -24,4 +24,7 @@ export const nextAuthOptions: NextAuthOptions = {
       };
     },
   },
+  secret: process.env.NEXTAUTH_SECRET,
 };
+
+console.log("環境変数：", process.env.NEXTAUTH_SECRET);
