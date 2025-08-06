@@ -1,11 +1,11 @@
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
-import { nextAuthOptions } from "../lib/next-auth/options";
+import { getNextAuthOptions } from "../lib/next-auth/options";
 import { User } from "../type/type";
 
 const Header = async () => {
-  const session = await getServerSession(nextAuthOptions);
+  const session = await getServerSession(getNextAuthOptions());
   const user = session?.user as User;
   // console.log(user);
   return (

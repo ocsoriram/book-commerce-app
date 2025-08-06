@@ -1,13 +1,13 @@
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import PurchaseDetailBook from "../components/PurchaseDetailBook";
-import { nextAuthOptions } from "../lib/next-auth/options";
+import { getNextAuthOptions } from "../lib/next-auth/options";
 import { getDetailBook } from "../microcms/client";
 import { BookType, Purchase, User } from "../type/type";
 
 export default async function ProfilePage() {
   // FIXME useContextAPIやreduxで１箇所での管理することを考える.
-  const session = await getServerSession(nextAuthOptions);
+  const session = await getServerSession(getNextAuthOptions());
   const user = session?.user as User;
 
   // ユーザーが存在すれば、購入済みの書籍データを取得する
