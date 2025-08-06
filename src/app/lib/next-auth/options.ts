@@ -25,7 +25,7 @@ export function getNextAuthOptions(): NextAuthOptions {
         };
       },
     },
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: process.env.AUTH_SECRET,
   };
 }
 
