@@ -17,9 +17,6 @@ const Book = ({ book, isPurchased }: bookProps) => {
   const user = session?.user as User;
   const router = useRouter();
 
-  // console.log("userId", user?.id);
-  // console.log("bookId", book.id);
-
   const handleConfirm = () => {
     // TODO 購入済みなら記事ページに遷移させることも考える
     if (isPurchased) {

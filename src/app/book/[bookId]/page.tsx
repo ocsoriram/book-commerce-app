@@ -8,7 +8,6 @@ const DetailBook = async ({
 }) => {
   const { bookId } = await params;
   const book = await getDetailBook(bookId); // SSR fetchを使うとSSRになる
-  // console.log(book);
 
   return (
     <div className="container mx-auto p-4">

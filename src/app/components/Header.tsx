@@ -7,7 +7,7 @@ import { User } from "../type/type";
 const Header = async () => {
   const session = await getServerSession(getNextAuthOptions());
   const user = session?.user as User;
-  // console.log(user);
+
   return (
     <header className="bg-slate-600 text-gray-100 shadow-lg">
       <nav className="flex items-center justify-between p-4">

@@ -15,8 +15,6 @@ const PurchaseSuccess = () => {
     const fetchData = async () => {
       if (sessionId) {
         try {
-          // console.log("sessionID", sessionId);
-          // console.log("sessionID", sessionId);
           const res = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/checkout/success`,
             {
@@ -28,7 +26,7 @@ const PurchaseSuccess = () => {
             }
           );
           const data = await res.json();
-          // console.log("sessionId:", data);
+
           setBookUrl(data.bookId);
         } catch (err) {
           console.error(err);

@@ -14,7 +14,6 @@ export async function GET(
       where: { userId: userId },
     });
 
-    // console.log("log at route.ts", purchases);
     return NextResponse.json(purchases);
   } catch (err) {
     return NextResponse.json(err);

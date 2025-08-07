@@ -21,8 +21,6 @@ export async function POST(request: Request) {
       },
     });
 
-    // console.log("sessions:", session);
-
     // session.metadata?.bookId!は非推奨なので、動画と違いここでnull checkを行う.
     if (!session.metadata || !session.metadata.bookId) {
       throw new Error("bookIdがありません");
@@ -36,11 +34,8 @@ export async function POST(request: Request) {
           bookId: session.metadata.bookId!,
         },
       });
-      // console.log("purchase:");
       return NextResponse.json(purchase);
     } else {
-      // return NextResponse.json({ message: "すでに購入済みです" });
-      // console.log("すでに購入済みです");
       return NextResponse.json(existingPurchase);
     }
   } catch (err) {

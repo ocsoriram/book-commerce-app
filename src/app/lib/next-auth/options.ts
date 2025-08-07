@@ -28,5 +28,3 @@ export function getNextAuthOptions(): NextAuthOptions {
     secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET,
   };
 }
-
-// console.log("環境変数：", process.env.NEXTAUTH_SECRET);

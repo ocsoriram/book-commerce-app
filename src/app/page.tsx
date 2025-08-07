@@ -21,12 +21,10 @@ export default async function Home() {
       `${process.env.NEXT_PUBLIC_API_URL}/purchases/${user.id}`
     );
     const purchasesData = await response.json();
-    // console.log("purchaseData:", purchasesData);
 
     purchaseBookIds = purchasesData.map(
       (purchaseBook: Purchase) => purchaseBook.bookId
     );
-    // console.log(purchaseBookIds);
   }
   return (
     <>

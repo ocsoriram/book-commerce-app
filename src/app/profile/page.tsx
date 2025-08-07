@@ -18,7 +18,6 @@ export default async function ProfilePage() {
       `${process.env.NEXT_PUBLIC_API_URL}/purchases/${user.id}`
     );
     const purchasesData = await response.json();
-    // console.log("purchaseData at profile:", purchasesData);
 
     const purchaseBookIds = purchasesData.map(
       (purchaseBook: Purchase) => purchaseBook.bookId
@@ -30,7 +29,6 @@ export default async function ProfilePage() {
       })
     );
   }
-  // console.log(purchaseDetailBooks);
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-xl font-bold mb-4">プロフィール</h1>
