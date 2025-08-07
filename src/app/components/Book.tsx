@@ -105,7 +105,7 @@ const Book = ({ book, isPurchased, user }: bookProps) => {
         </a>
       </div>
       {showModal && (
-        <div className="absolute top-0 left-0 right-0 bottom-0 bg-slate-900/80 flex justify-center items-center modal h-full">
+        <div className="fixed inset-0 bg-slate-900/80 flex justify-center items-center z-50 modal">
           <div className="bg-white p-8 rounded-lg">
             <h3 className="text-xl mb-4">本を購入しますか？</h3>
             <button
