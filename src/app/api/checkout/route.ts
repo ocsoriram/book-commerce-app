@@ -28,8 +28,11 @@ export async function POST(request: Request) {
       ],
       mode: "payment",
       // CHECKOUT_SESSION_IDは、stripeが動的に作成してくれる.
-      success_url: `http://localhost:3000/book/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `http://localhost:3000`,
+      success_url: `http://{process.env.VERCEL_DOMAIN_FEATURE}/book/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `http://{process.env.VERCEL_DOMAIN_FEATURE}`,
+
+      // success_url: `http://localhost:3000/book/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
+      // cancel_url: `http://localhost:3000`,
     });
     // console.log("session:", session);
     return NextResponse.json({ checkout_url: session.url });
