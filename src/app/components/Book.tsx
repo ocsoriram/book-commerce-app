@@ -1,6 +1,5 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -9,12 +8,12 @@ import { BookType, User } from "../type/type";
 type bookProps = {
   book: BookType;
   isPurchased: boolean;
+  user: User;
 };
 
-const Book = ({ book, isPurchased }: bookProps) => {
+// REFACTOR メモ化を考える. isPurchaseが変更された時だけ変更が走る.
+const Book = ({ book, isPurchased, user }: bookProps) => {
   const [showModal, setShowModal] = useState(false);
-  const { data: session } = useSession();
-  const user = session?.user as User;
   const router = useRouter();
 
   const handleConfirm = () => {
@@ -26,6 +25,7 @@ const Book = ({ book, isPurchased }: bookProps) => {
     }
   };
 
+  // refactor useCallback パフォーマンスへの影響は小さい
   const handleCancel = () => {
     setShowModal(false);
   };
